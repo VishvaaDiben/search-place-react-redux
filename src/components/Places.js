@@ -1,27 +1,16 @@
 import { Card, Input } from "antd";
 import React, { useEffect, useState } from "react";
+import { getMatchPlaces, getPlaces } from "../redux/PlaceAction";
 import { useDispatch, useSelector } from "react-redux";
-
-import { getPlaces } from "../redux/PlaceAction";
 
 function Places() {
   const dispatch = useDispatch();
-
   const state = useSelector((state) => state);
 
-  const [matchPlaces, setMatchPlaces] = useState([]);
+  const matchPlaces = state.getMatchReducer.searchItems;
 
   const searchPlace = (text) => {
-    if (!text) {
-      setMatchPlaces([]);
-    } else {
-        //dispatch 
-      let matches = state.items.filter((place) => {
-        const regex = new RegExp(`${text}`, "gi");
-        return place.name.common.match(regex) || place.region.match(regex);
-      });
-      setMatchPlaces(matches);
-    }
+    dispatch(getMatchPlaces(text, state));
   };
 
   const renderView = () => {

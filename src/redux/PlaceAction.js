@@ -10,7 +10,10 @@ export const getPlaces = () => async (dispatch, getState) => {
   }
 };
 
-
-// export const getMatchPlaces = () => (dispatch, getState) => {
-//     dispatch({ type: "MATCH_PLACES_REQUEST", payload: text });
-// }
+export const getMatchPlaces = (text, state) => (dispatch, getState) => {
+  let matches = state.getPlaceReducer.items.filter((place) => {
+    const regex = new RegExp(`${text}`, "gi");
+    return place.name.common.match(regex) || place.region.match(regex);
+  });
+  dispatch({ type: "MATCH_PLACES_REQUEST", matches: !text ? "" : matches });
+};

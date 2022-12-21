@@ -2,6 +2,7 @@ const initState = {
   items: [],
   loading: false,
   error: null,
+  searchItems:[]
 };
 
 export const getPlaceReducer = (state = initState, action) => {
@@ -30,15 +31,15 @@ export const getPlaceReducer = (state = initState, action) => {
   }
 };
 
-// export const getMatchReducer = (state = initState, action) => {
-//   switch (action.type) {
-//     case "MATCH_PLACES_REQUEST":
-//       return {
-//         ...state,
-//         loading: true,
-//         error: null,
-//       };
-//     default:
-//       return state;
-//   }
-// };
+export const getMatchReducer = (state = initState, action) => {
+  switch (action.type) {
+    case "MATCH_PLACES_REQUEST":
+      return {
+        ...state,
+        loading: false,
+        searchItems: action.matches,
+      };
+    default:
+      return state;
+  }
+};

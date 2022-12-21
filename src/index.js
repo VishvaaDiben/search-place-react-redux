@@ -1,16 +1,17 @@
 import "./index.css";
 
+import { getMatchReducer, getPlaceReducer } from "./redux/PlaceReducer";
+
 import App from "./App";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { configureStore } from "@reduxjs/toolkit";
-import { getPlaceReducer } from "./redux/PlaceReducer";
 import reportWebVitals from "./reportWebVitals";
 import thunk from "redux-thunk";
 
 const store = configureStore({
-  reducer: getPlaceReducer,
+  reducer: { getPlaceReducer, getMatchReducer },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });
 
